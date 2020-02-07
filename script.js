@@ -8,12 +8,21 @@ let normalPrecip = [];
 getPrecipData();
 //buildChart();
 
+// fill arrays with stuff
+const fillPrecipData = () => {
+	return new Promise((resolve, reject) => {
+		sites = buildSites(precipData.data);
+		actualPrecip = buildPrecip(precipData.data, "actualPrecip");
+		normalPrecip = buildPrecip(precipData.data, "normalPrecip");
+		resolve();
+	});
+};
+
 // Gets JSON data via Axios and populates precip variables
 async function getPrecipData() {
 	precipData = await axios.get("https://api.myjson.com/bins/qgwqy");
-	sites = buildSites(precipData.data);
-	actualPrecip = buildPrecip(precipData.data, "actualPrecip");
-	normalPrecip = buildPrecip(precipData.data, "normalPrecip");
+	const bullshit = await fillPrecipData();
+	buildChart();
 }
 
 // Builds the list of sites as an array
@@ -40,34 +49,29 @@ const buildPrecip = (precipData, precipType) => {
 	return precipArray;
 };
 
-// axios.get("https://api.myjson.com/bins/qgwqy")
-//   .then(function (response) {
-//     // handle success
-//     //buildSites(response.data.data);
-//     buildActualPrecip(response.data.data);
-//   const chart = new Chart(ctx, {
-//     type: 'bar',
+const buildChart = () => {
+	const chart = new Chart(ctx, {
+		type: "bar",
 
-//     data: {
-//         labels: sites,
-//         datasets: [{
-//             label: 'Actual Precip',
-//             backgroundColor: '#057ff3',
-//             borderColor: '#057ff3',
-//             data: [actualPrecip]
-//         },{
-//             label: 'Normal Precip',
-//             backgroundColor: '#777',
-//             borderColor: '#777',
-//             data: [3, 1, 3, 2, 1, 2, 1]
-//         }]
-//     },
+		data: {
+			labels: sites,
+			datasets: [
+				{
+					label: "Actual Precip",
+					backgroundColor: "#057ff3",
+					borderColor: "#057ff3",
+					data: actualPrecip
+				},
+				{
+					label: "Normal Precip",
+					backgroundColor: "#777",
+					borderColor: "#777",
+					data: normalPrecip
+				}
+			]
+		},
 
-//     // Configuration options go here
-//     options: {}
-// });
-//   })
-//   .catch(function (error) {
-//     // handle error
-//     console.log("error");
-//   });
+		// Configuration options go here
+		options: {}
+	});
+};
