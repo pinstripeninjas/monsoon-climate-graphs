@@ -98,13 +98,13 @@ const buildChart = () => {
 			labels: sites,
 			datasets: [
 				{
-					label: "Actual Precip",
+					label: "Actual Rainfall",
 					backgroundColor: "#057ff3",
 					borderColor: "#057ff3",
 					data: actualPrecip
 				},
 				{
-					label: "Normal Precip",
+					label: "Normal Rainfall",
 					backgroundColor: "#888",
 					borderColor: "#888",
 					data: normalPrecip
@@ -116,9 +116,20 @@ const buildChart = () => {
 		options: {
 			title: {
 				display: true,
-				text: "2019 Total Monsoon Precipitation vs. Normal",
+				text: "2019 Monsoon Rainfall vs. Normal",
 				fontSize: 28,
 				fontColor: "#666"
+			},
+			scales: {
+				yAxes: [
+					{
+						scaleLabel: {
+							display: true,
+							labelString: "Rainfall (inches)",
+							fontSize: 14
+						}
+					}
+				]
 			}
 		}
 	});
@@ -132,7 +143,7 @@ const buildLineGraph = (site) => {
 			labels: precipData.data.date,
 			datasets: [
 				{
-					label: "Actual Precip",
+					label: "Actual Rainfall",
 					backgroundColor: "#057ff3",
 					borderColor: "#057ff3",
 					data: dailyPrecip(site, "actualPrecip"),
@@ -141,7 +152,7 @@ const buildLineGraph = (site) => {
 					pointRadius: 0
 				},
 				{
-					label: "Normal Precip",
+					label: "Normal Rainfall",
 					backgroundColor: "#888",
 					borderColor: "#888",
 					data: dailyPrecip(site, "normalPrecip"),
@@ -159,6 +170,17 @@ const buildLineGraph = (site) => {
 				text: `2019 Monsoon Rainfall for ${sites[site]}`,
 				fontSize: 28,
 				fontColor: "#666"
+			},
+			scales: {
+				yAxes: [
+					{
+						scaleLabel: {
+							display: true,
+							labelString: "Rainfall (inches)",
+							fontSize: 14
+						}
+					}
+				]
 			}
 		}
 	});
