@@ -3,11 +3,6 @@
 	margin: 0 auto;
 }
 
-.active {
-	background: #057ff3;
-	color: #fff;
-}
-
 #lineChart {
 	padding-top: 30px;
 }
@@ -21,12 +16,18 @@
 }
 
 #siteSelector div {
-	padding: 10px 5px;
+	padding: 10px;
 	color: #666;
+	border-radius: 0.5rem;
 }
 
 #siteSelector div:hover {
 	background: #057ff3;
 	color: #fff;
 	cursor: pointer;
+}
+
+#siteSelector .active {
+	background: #057ff3;
+	color: #fff;
 }

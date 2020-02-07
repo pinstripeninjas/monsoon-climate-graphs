@@ -1,6 +1,7 @@
 const ctx = document.getElementById("myChart").getContext("2d");
 const lineChart = document.getElementById("lineChart").getContext("2d");
 const siteSelector = document.getElementById("siteSelector");
+let buttonListener = document.querySelectorAll(".siteButton");
 
 let precipData = {};
 let sites = [];
@@ -49,6 +50,7 @@ const buildPrecip = (precipData, precipType) => {
 	return precipArray;
 };
 
+// build daily precip data for line chart
 const dailyPrecip = (site, precipType) => {
 	const newPrecipArray = [];
 	let newPrecipTotal = 0;
@@ -64,13 +66,27 @@ const dailyPrecip = (site, precipType) => {
 	return newPrecipArray;
 };
 
+// build site selector bar at bottom of line chart
 const buildSiteSelector = () => {
 	for (let i = 0; i < sites.length; i++) {
 		const newDiv = document.createElement("div");
 		newDiv.setAttribute("datanumber", i);
 		newDiv.innerText = sites[i];
+		newDiv.classList.add("siteButton");
+		if (i === 0) {
+			newDiv.classList.add("active");
+		}
 		siteSelector.append(newDiv);
+		buttonListener = document.querySelectorAll(".siteButton");
 	}
+	for (let i = 0; i < buttonListener.length; i++) {
+		buttonListener[i].addEventListener("click", changeData);
+	}
+};
+
+// listener that changes the data when site button clicked
+const changeData = (event) => {
+	console.log(event.target);
 };
 
 // uses chart JS to build total precip chart
