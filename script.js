@@ -1,5 +1,6 @@
 const ctx = document.getElementById("myChart").getContext("2d");
 const lineChart = document.getElementById("lineChart").getContext("2d");
+const siteSelector = document.getElementById("siteSelector");
 
 let precipData = {};
 let sites = [];
@@ -21,6 +22,7 @@ async function getPrecipData() {
 	fillPrecipData();
 	buildChart();
 	buildLineGraph(0);
+	buildSiteSelector();
 }
 
 // Builds the list of sites as an array
@@ -48,20 +50,27 @@ const buildPrecip = (precipData, precipType) => {
 };
 
 const dailyPrecip = (site, precipType) => {
-	console.log(precipData.data.data[site][precipType].length);
 	const newPrecipArray = [];
 	let newPrecipTotal = 0;
 	for (let i = 0; i < precipData.data.data[site][precipType].length; i++) {
 		const currentPrecipAmount = precipData.data.data[site][precipType][i];
 		if (typeof currentPrecipAmount === "number") {
 			newPrecipTotal += currentPrecipAmount;
-			console.log(newPrecipTotal);
 			newPrecipArray.push(newPrecipTotal);
 		} else {
 			newPrecipArray.push(newPrecipTotal);
 		}
 	}
 	return newPrecipArray;
+};
+
+const buildSiteSelector = () => {
+	for (let i = 0; i < sites.length; i++) {
+		const newDiv = document.createElement("div");
+		newDiv.setAttribute("datanumber", i);
+		newDiv.innerText = sites[i];
+		siteSelector.append(newDiv);
+	}
 };
 
 // uses chart JS to build total precip chart

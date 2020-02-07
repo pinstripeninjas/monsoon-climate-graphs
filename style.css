@@ -3,6 +3,30 @@
 	margin: 0 auto;
 }
 
+.active {
+	background: #057ff3;
+	color: #fff;
+}
+
 #lineChart {
-	padding: 30px;
+	padding-top: 30px;
+}
+
+#siteSelector {
+	display: flex;
+	margin-bottom: 30px;
+	justify-content: space-between;
+	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-size: 14px;
+}
+
+#siteSelector div {
+	padding: 10px 5px;
+	color: #666;
+}
+
+#siteSelector div:hover {
+	background: #057ff3;
+	color: #fff;
+	cursor: pointer;
 }
