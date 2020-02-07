@@ -1,40 +1,44 @@
 const ctx = document.getElementById("myChart").getContext("2d");
 
-//const sites = [];
-const actualPrecip = [];
-const normalPrecip = [];
+let precipData = {};
+let sites = [];
+let actualPrecip = [];
+let normalPrecip = [];
 
-const buildSites = (data) => {
-	let sites = [];
-	console.log(data);
-	for (site of data.data) {
-		console.log(site.name);
-		//sites.push(site.name);
+getPrecipData();
+//buildChart();
+
+// Gets JSON data via Axios and populates precip variables
+async function getPrecipData() {
+	precipData = await axios.get("https://api.myjson.com/bins/qgwqy");
+	sites = buildSites(precipData.data);
+	actualPrecip = buildPrecip(precipData.data, "actualPrecip");
+	normalPrecip = buildPrecip(precipData.data, "normalPrecip");
+}
+
+// Builds the list of sites as an array
+const buildSites = (precipData) => {
+	const sites = [];
+	for (site of precipData.data) {
+		sites.push(site.name);
 	}
-	//console.log(sites);
 	return sites;
 };
 
-const buildActualPrecip = (data) => {
-	for (site of data) {
+// Builds both the actual and normal precip arrays
+const buildPrecip = (precipData, precipType) => {
+	const precipArray = [];
+	for (site of precipData.data) {
 		let totalPrecipAmount = 0;
-		for (precip of site.actualPrecip) {
-			//console.log(precip)
-			if (precip !== "T" && precip !== "M") {
+		for (precip of site[precipType]) {
+			if (typeof precip === "number") {
 				totalPrecipAmount += precip;
 			}
 		}
-		actualPrecip.push(Number(totalPrecipAmount.toFixed(2)));
-		//console.log(Number(totalPrecipAmount.toFixed(2)));
+		precipArray.push(Number(totalPrecipAmount.toFixed(2)));
 	}
+	return precipArray;
 };
-
-async function getPrecipData() {
-	const precipData = await axios.get("https://api.myjson.com/bins/qgwqy");
-	const sites = await buildSites(precipData);
-}
-
-getPrecipData();
 
 // axios.get("https://api.myjson.com/bins/qgwqy")
 //   .then(function (response) {
