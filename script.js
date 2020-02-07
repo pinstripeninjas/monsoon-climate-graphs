@@ -6,22 +6,18 @@ let actualPrecip = [];
 let normalPrecip = [];
 
 getPrecipData();
-//buildChart();
 
 // fill arrays with stuff
 const fillPrecipData = () => {
-	return new Promise((resolve, reject) => {
-		sites = buildSites(precipData.data);
-		actualPrecip = buildPrecip(precipData.data, "actualPrecip");
-		normalPrecip = buildPrecip(precipData.data, "normalPrecip");
-		resolve();
-	});
+	sites = buildSites(precipData.data);
+	actualPrecip = buildPrecip(precipData.data, "actualPrecip");
+	normalPrecip = buildPrecip(precipData.data, "normalPrecip");
 };
 
-// Gets JSON data via Axios and populates precip variables
+// Gets JSON data via Axios and populates precip variables, then builds chart
 async function getPrecipData() {
-	precipData = await axios.get("https://api.myjson.com/bins/qgwqy");
-	const bullshit = await fillPrecipData();
+	precipData = await axios.get("https://api.myjson.com/bins/j1wy8");
+	fillPrecipData();
 	buildChart();
 }
 
@@ -49,6 +45,7 @@ const buildPrecip = (precipData, precipType) => {
 	return precipArray;
 };
 
+// uses chart JS to build total precip chart
 const buildChart = () => {
 	const chart = new Chart(ctx, {
 		type: "bar",
@@ -64,14 +61,21 @@ const buildChart = () => {
 				},
 				{
 					label: "Normal Precip",
-					backgroundColor: "#777",
-					borderColor: "#777",
+					backgroundColor: "#888",
+					borderColor: "#888",
 					data: normalPrecip
 				}
 			]
 		},
 
 		// Configuration options go here
-		options: {}
+		options: {
+			title: {
+				display: true,
+				text: "2019 Total Monsoon Precipitation vs. Normal",
+				fontSize: 28,
+				fontColor: "#666"
+			}
+		}
 	});
 };
