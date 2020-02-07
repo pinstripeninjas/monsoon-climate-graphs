@@ -1,4 +1,5 @@
 const ctx = document.getElementById("myChart").getContext("2d");
+const lineChart = document.getElementById("lineChart").getContext("2d");
 
 let precipData = {};
 let sites = [];
@@ -19,6 +20,7 @@ async function getPrecipData() {
 	precipData = await axios.get("https://api.myjson.com/bins/j1wy8");
 	fillPrecipData();
 	buildChart();
+	buildLineGraph(0);
 }
 
 // Builds the list of sites as an array
@@ -43,6 +45,23 @@ const buildPrecip = (precipData, precipType) => {
 		precipArray.push(Number(totalPrecipAmount.toFixed(2)));
 	}
 	return precipArray;
+};
+
+const dailyPrecip = (site, precipType) => {
+	console.log(precipData.data.data[site][precipType].length);
+	const newPrecipArray = [];
+	let newPrecipTotal = 0;
+	for (let i = 0; i < precipData.data.data[site][precipType].length; i++) {
+		const currentPrecipAmount = precipData.data.data[site][precipType][i];
+		if (typeof currentPrecipAmount === "number") {
+			newPrecipTotal += currentPrecipAmount;
+			console.log(newPrecipTotal);
+			newPrecipArray.push(newPrecipTotal);
+		} else {
+			newPrecipArray.push(newPrecipTotal);
+		}
+	}
+	return newPrecipArray;
 };
 
 // uses chart JS to build total precip chart
@@ -73,6 +92,46 @@ const buildChart = () => {
 			title: {
 				display: true,
 				text: "2019 Total Monsoon Precipitation vs. Normal",
+				fontSize: 28,
+				fontColor: "#666"
+			}
+		}
+	});
+};
+
+const buildLineGraph = (site) => {
+	const chart = new Chart(lineChart, {
+		type: "line",
+
+		data: {
+			labels: precipData.data.date,
+			datasets: [
+				{
+					label: "Actual Precip",
+					backgroundColor: "#057ff3",
+					borderColor: "#057ff3",
+					data: dailyPrecip(site, "actualPrecip"),
+					fill: false,
+					lineTension: 0,
+					pointRadius: 0
+				},
+				{
+					label: "Normal Precip",
+					backgroundColor: "#888",
+					borderColor: "#888",
+					data: dailyPrecip(site, "normalPrecip"),
+					fill: false,
+					lineTension: 0,
+					pointRadius: 0
+				}
+			]
+		},
+
+		// Configuration options go here
+		options: {
+			title: {
+				display: true,
+				text: `2019 Monsoon Rainfall for ${sites[site]}`,
 				fontSize: 28,
 				fontColor: "#666"
 			}
