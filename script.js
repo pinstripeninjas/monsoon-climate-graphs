@@ -10,13 +10,6 @@ let normalPrecip = [];
 
 getPrecipData();
 
-// fill arrays with stuff
-const fillPrecipData = () => {
-	sites = buildSites(precipData.data);
-	actualPrecip = buildPrecip(precipData.data, "actualPrecip");
-	normalPrecip = buildPrecip(precipData.data, "normalPrecip");
-};
-
 // Gets JSON data via Axios and populates precip variables, then builds chart
 async function getPrecipData() {
 	precipData = await axios.get("https://api.myjson.com/bins/j1wy8");
@@ -25,6 +18,13 @@ async function getPrecipData() {
 	buildLineGraph(0);
 	buildSiteSelector();
 }
+
+// fill arrays with stuff
+const fillPrecipData = () => {
+	sites = buildSites(precipData.data);
+	actualPrecip = buildPrecip(precipData.data, "actualPrecip");
+	normalPrecip = buildPrecip(precipData.data, "normalPrecip");
+};
 
 // Builds the list of sites as an array
 const buildSites = (precipData) => {
@@ -85,9 +85,14 @@ const buildSiteSelector = () => {
 };
 
 // listener that changes the data when site button clicked
-const changeData = (event) => {
-	console.log(event.target);
-};
+function changeData(event) {
+	for (let i = 0; i < buttonListener.length; i++) {
+		buttonListener[i].classList.remove("active");
+	}
+	this.classList.add("active");
+	const newSite = event.target.attributes.datanumber.value;
+	buildLineGraph(newSite);
+}
 
 // uses chart JS to build total precip chart
 const buildChart = () => {
@@ -135,6 +140,7 @@ const buildChart = () => {
 	});
 };
 
+// Builds line graph by taking the site number as an argument
 const buildLineGraph = (site) => {
 	const chart = new Chart(lineChart, {
 		type: "line",
