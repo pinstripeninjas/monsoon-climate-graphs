@@ -177,6 +177,10 @@ const buildLineGraph = (site) => {
 				fontSize: 28,
 				fontColor: "#666"
 			},
+			events: null,
+			tooltips: {
+				enabled: false
+			},
 			scales: {
 				yAxes: [
 					{
