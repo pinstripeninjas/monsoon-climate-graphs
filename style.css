@@ -23,12 +23,12 @@
 }
 
 #siteSelector div:hover {
-	background: #057ff3;
+	background: #6092a6;
 	color: #fff;
 	cursor: pointer;
 }
 
 #siteSelector .active {
-	background: #057ff3;
+	background: #6092a6;
 	color: #fff;
 }
