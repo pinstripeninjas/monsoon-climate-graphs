@@ -104,8 +104,8 @@ const buildChart = () => {
 			datasets: [
 				{
 					label: "Actual Rainfall",
-					backgroundColor: "#6092A6",
-					borderColor: "#6092A6",
+					backgroundColor: "#6092a6",
+					borderColor: "#6092a6",
 					data: actualPrecip
 				},
 				{
@@ -181,8 +181,8 @@ const buildLineGraph = (site) => {
 			datasets: [
 				{
 					label: "Actual Rainfall",
-					backgroundColor: "#6092A6",
-					borderColor: "#6092A6",
+					backgroundColor: "#6092a6",
+					borderColor: "#6092a6",
 					data: dailyPrecip(site, "actualPrecip"),
 					fill: false,
 					lineTension: 0,
