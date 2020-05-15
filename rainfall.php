@@ -108,10 +108,11 @@ return false;
   <tr><td>&nbsp;</td></tr>
 </table>
 
-  <!-- Put New Charts Here -->
-
-
-
+  <!-- Charts -->
+  <canvas id="myChart"></canvas>
+	<canvas id="lineChart"></canvas>
+	<div id="siteSelector"></div>
+	<div id="lastUpdate"></div>
   <!-- End of Chart Content -->
 
 <table width="95%">
