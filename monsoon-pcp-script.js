@@ -17,11 +17,11 @@ const currentYear = new Date().getFullYear();
 getPrecipData();
 
 // "https://extendsclass.com/api/json-storage/bin/addceda"
-// "../images/twc/monsoonPCP/2020PCP.json"
+// "../../../images/twc/monsoonPCP/2020PCP.json"
 
 // Gets JSON data via Axios and populates precip variables, then builds chart
 async function getPrecipData() {
-	precipData = await axios.get("https://extendsclass.com/api/json-storage/bin/addceda");
+	precipData = await axios.get("../../../images/twc/monsoonPCP/2020PCP.json");
 	fillPrecipData();
 	buildChart();
 	buildLineGraph(0);

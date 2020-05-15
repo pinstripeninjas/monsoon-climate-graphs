@@ -37,7 +37,7 @@ return false;
 <title>National Weather Service Tucson Arizona - Monsoon RainFall</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 <!-- Local stylesheet -->
-<link rel="stylesheet" href="./style.css" />
+<link rel="stylesheet" href="../scripts/monsoon-pcp-style.css" />
 		<!-- Chart JS and Axios CDN -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -236,7 +236,7 @@ return false;
 </table>
 </center>
 		<!-- Local JS -->
-		<script src="./script.js"></script>
+		<script src="../scripts/monsoon-pcp-script.js"></script>
 </body>
 </html>
 
